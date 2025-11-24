@@ -34,7 +34,7 @@ export const createGallery = values => {
 </li>
 `
   };
-  refs.galleryList.innerHTML = values.map(imgInfo => createGalleryCardTemplate(imgInfo)).join('');
+  refs.galleryList.insertAdjacentHTML('beforeend', values.map(imgInfo => createGalleryCardTemplate(imgInfo)).join(''));
 
   if (!galleryLightbox) {
     galleryLightbox = new SimpleLightbox('.gallery a', {
@@ -49,13 +49,11 @@ export const createGallery = values => {
 const refs = {
   galleryList: document.querySelector('.gallery'),
   loader: document.querySelector('.loader'),
+  loadMoreBtn: document.querySelector('.load-more-btn'),
 }
+
 export const clearGallery = () => { refs.galleryList.innerHTML = ''; };
 export const showLoader = () => { refs.loader.classList.remove('is-hidden'); };
 export const hideLoader = () => { refs.loader.classList.add('is-hidden'); };
-
-// У файлі render - functions.js створи екземпляр SimpleLightbox для роботи з модальним вікном та зберігай функції для відображення елементів інтерфейсу:
-// createGallery(images).Ця функція повинна приймати масив images, створювати HTML - розмітку для галереї, додавати її в контейнер галереї та викликати метод екземпляра SimpleLightbox refresh().Нічого не повертає.
-//     clearGallery().Ця функція нічого не приймає та повинна очищати вміст контейнера галереї.Нічого не повертає.
-//         showLoader().Ця функція нічого не приймає, повинна додавати клас для відображення лоадера.Нічого не повертає.
-//             hideLoader().Ця функція нічого не приймає, повинна прибирати клас для відображення лоадера.Нічого не повертає.
+export const showLoadMoreBtn = () => { refs.loadMoreBtn.classList.remove('is-hidden'); }
+export const hideLoadMoreBtn = () => { refs.loadMoreBtn.classList.add('is-hidden'); }

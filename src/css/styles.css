@@ -186,3 +186,25 @@ label {
   align-items: center;
   /* justify-content: center; */
 }
+
+/* Load more button styles */
+.load-more-btn.is-hidden {
+  display: none;
+}
+
+.load-more-btn {
+  background-color: #4e75ff;
+  color: #ffffff;
+  border-radius: 8px;
+  padding-block: 8px;
+  padding-inline: 16px;
+  width: 125px;
+  height: 40px;
+  border: none;
+  margin: 32px auto;
+}
+
+.load-more-btn:hover,
+.load-more-btn:focus {
+  background-color: #6c8cff;
+}
