@@ -18,7 +18,6 @@ export const getImagesByQuery = async (query, page) => {
     } catch (error) {
         console.log(error);
     }
-
 };
 
 
