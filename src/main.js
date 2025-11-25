@@ -23,7 +23,7 @@ const onSubmitForm = async event => {
     }
     clearGallery();
     showLoader();
-    page = 33;
+    page = 1;
     // Відмальовуємо першу сторінку галереї
 
     try {
