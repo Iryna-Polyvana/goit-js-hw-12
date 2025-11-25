@@ -22,6 +22,7 @@ const onSubmitForm = async event => {
         return;
     }
     clearGallery();
+    hideLoadMoreBtn();
     showLoader();
     page = 1;
     // Відмальовуємо першу сторінку галереї
@@ -39,15 +40,14 @@ const onSubmitForm = async event => {
 
         if (totalHits > perPage) {
             showLoadMoreBtn();
-            refs.loadMoreBtn.addEventListener('click', onLoadMoreBtn);
         }
 
         createGallery(hits);
         galleryCardHeight = refs.galleryList.querySelector('li').getBoundingClientRect().height;
     }
-    catch {
+    catch (error) {
         iziToast.error({
-            message: err.message || 'Something went wrong',
+            message: error.message || 'Something went wrong',
         })
     }
     finally { hideLoader() };
@@ -60,20 +60,18 @@ const onLoadMoreBtn = async event => {
     showLoader();
     try {
         page++;
-        const { hits } = await getImagesByQuery(query, page);
+        const { hits, totalHits } = await getImagesByQuery(query, page);
         createGallery(hits);
         scrollBy({
             top: galleryCardHeight * 2,
             behavior: 'smooth',
         });
 
-        if (hits.length <= perPage) {
+        if (page === Math.ceil(totalHits / perPage)) {
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
                 position: 'topRight',
             });
-
-            refs.loadMoreBtn.removeEventListener('click', onLoadMoreBtn);
             hideLoadMoreBtn();
             return;
         }
@@ -85,3 +83,4 @@ const onLoadMoreBtn = async event => {
         hideLoader();
     };
 };
+refs.loadMoreBtn.addEventListener('click', onLoadMoreBtn);
